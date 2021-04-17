@@ -2,6 +2,7 @@
 
 - [Google Cloud GKE docker kubectl](#google-cloud-gke-docker-kubectl)
     - [Purpose](#purpose)
+    - [Really important thing](#really-important-thing)
     - [Example usage](#example-usage)
       - [In Docker](#in-docker)
       - [In Kubernetes](#in-kubernetes)
@@ -21,12 +22,17 @@ This docker image works fine with Kubernetes and local run and requires supplyin
 * *GCP_REGION:* Your GKE cluster region
 * *GOOGLE_APPLICATION_CREDENTIALS:* Your GCP credentials JSON file path
 
+### Really important thing
+Please make sure that Docker NETWORK is set to HOST ( which unfortunately does not work too well on Macs ), otherwise `gcloud` have issues with reaching the cluster endpoint for kubectl.
+( Yes, took me few hours to figure it out so I'm trying to save your time here ).
+
 ### Example usage
 
 #### In Docker
 
 ```bash
 docker run
+  --network host \
   -v $(echo $HOME)/.gcp/cred.json:/srv/.kube/gcp.json \
   -e GOOGLE_APPLICATION_CREDENTIALS=/srv/.kube/gcp.json \
   -e GCP_PROJECT=myGCPProjectName -e GCP_CLUSTER=myGKEClusterName \
