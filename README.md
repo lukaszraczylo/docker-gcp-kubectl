@@ -31,7 +31,7 @@ docker run
   -e GOOGLE_APPLICATION_CREDENTIALS=/srv/.kube/gcp.json \
   -e GCP_PROJECT=myGCPProjectName -e GCP_CLUSTER=myGKEClusterName \
   -e GCP_REGION=europe-west1-a \
-  -it ghcr.io/lukaszraczylo/gcp-kubectl \
+  -it ghcr.io/lukaszraczylo/docker-gcp-kubectl:latest \
   port-forward --address 0.0.0.0 -n myProjectNamespace service/tgnats-client 4222:4222
 ```
 
@@ -69,7 +69,7 @@ spec:
       - name: docker-ghcr
       containers:
       - name: tg7-fwd-live
-        image: ghcr.io/lukaszraczylo/gke-kubectl:latest
+        image: ghcr.io/lukaszraczylo/docker-gcp-kubectl:latest
         ports:
           - name: fwd-nats-pt
             containerPort: 4222
