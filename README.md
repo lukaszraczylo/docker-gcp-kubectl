@@ -3,6 +3,7 @@
 - [Google Cloud GKE docker kubectl](#google-cloud-gke-docker-kubectl)
     - [Purpose](#purpose)
     - [Really important thing](#really-important-thing)
+    - [Preinstalled binaries](#preinstalled-binaries)
     - [Example usage](#example-usage)
       - [In Docker](#in-docker)
       - [In Kubernetes](#in-kubernetes)
@@ -26,6 +27,14 @@ This docker image works fine with Kubernetes and local run and requires supplyin
 Please make sure that Docker NETWORK is set to HOST ( which unfortunately does not work too well on Macs ), otherwise `gcloud` have issues with reaching the cluster endpoint for kubectl.
 ( Yes, took me few hours to figure it out so I'm trying to save your time here ).
 
+### Preinstalled binaries
+
+* Google Cloud SDK
+* Kubectl
+* Skaffold
+
+If you'd like to mount directories ( for example for skaffold ) I'd recommend `-v $PATH/skaffold:/srv/data`.
+
 ### Example usage
 
 #### In Docker
@@ -38,7 +47,7 @@ docker run
   -e GCP_PROJECT=myGCPProjectName -e GCP_CLUSTER=myGKEClusterName \
   -e GCP_REGION=europe-west1-a \
   -it ghcr.io/lukaszraczylo/docker-gcp-kubectl:latest \
-  port-forward --address 0.0.0.0 -n myProjectNamespace service/tgnats-client 4222:4222
+  kubectl port-forward --address 0.0.0.0 -n myProjectNamespace service/tgnats-client 4222:4222
 ```
 
 #### In Kubernetes
@@ -83,7 +92,7 @@ spec:
           - mountPath: /srv/.kube
             name: kubefwd-storage
             subPath: kube-fwd
-        args: ["port-forward", "--address", "0.0.0.0", "-n", "tg", "service/tgnats-client", "4222:4222"]
+        args: ["kubectl", "port-forward", "--address", "0.0.0.0", "-n", "tg", "service/tgnats-client", "4222:4222"]
         env:
           - name: GOOGLE_APPLICATION_CREDENTIALS
             value: /srv/.kube/gcp.json
