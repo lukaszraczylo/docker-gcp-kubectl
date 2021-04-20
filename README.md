@@ -38,6 +38,8 @@ If you'd like to mount directories ( for example for skaffold ) I'd recommend `-
 
 ### Example usage
 
+You can set environment variable `SKIP_GCP` to any value to skip setting up the Google Cloud Platform credentials ( which may take a while )
+
 #### In Docker
 
 ```bash
