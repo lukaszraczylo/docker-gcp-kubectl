@@ -32,6 +32,7 @@ Please make sure that Docker NETWORK is set to HOST ( which unfortunately does n
 * Google Cloud SDK
 * Kubectl
 * Skaffold
+* Inlets PRO
 
 If you'd like to mount directories ( for example for skaffold ) I'd recommend `-v $PATH/skaffold:/srv/data`.
 
