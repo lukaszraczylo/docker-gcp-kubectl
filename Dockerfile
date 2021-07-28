@@ -6,10 +6,10 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-336.0.0-linux-x86_64.tar.gz && tar -zxf google-cloud-sdk-336.0.0-linux-x86_64.tar.gz
 RUN curl -Lo skaffold https://storage.googleapis.com/skaffold/builds/latest/skaffold-${TARGETPLATFORM/\//-} && mv skaffold /usr/bin/skaffold && chmod +x /usr/bin/skaffold
 RUN if [ "${TARGETPLATFORM/linux\//}" = "arm64" ]; then \
-    curl -LO https://github.com/inlets/inlets-pro/releases/download/0.8.7/inlets-pro-arm64; \
+    curl -LO https://github.com/inlets/inlets-pro/releases/download/0.8.6/inlets-pro-arm64; \
     mv inlets-pro-arm64 inlets-pro ; \
   else \
-    curl -LO https://github.com/inlets/inlets-pro/releases/download/0.8.7/inlets-pro; \
+    curl -LO https://github.com/inlets/inlets-pro/releases/download/0.8.6/inlets-pro; \
   fi
 RUN mv inlets-pro /usr/bin/inlets-pro && chmod +x /usr/bin/inlets-pro
 COPY run.sh /srv/run.sh
